@@ -94,6 +94,36 @@ app.post('/payment', (req, res) => {
     return res.status(400).json({ status: '400', response: 'INVALID_DATA', message: 'Invalid payment data, please check your input' });
 });
 
+// Endpoint for creating a product (POST)
+app.post('/product', (req, res) => {
+    // Assuming the request body contains JSON data
+    const productData = req.body;
+
+    // Validate the product data
+    const requiredFields = ['name', 'description', 'price'];
+    if (requiredFields.some(key => !(key in productData))) {
+        return res.status(400).json({ status: '400', response: 'INVALID_DATA', message: 'Missing required fields, please check your input' });
+    }
+
+    // For now, we'll just return a success message
+    return res.json({ status: '200', response: 'success', message: 'Product created successfully', data: productData });
+});
+
+// Endpoint for creating a user (POST)
+app.post('/user', (req, res) => {
+    // Assuming the request body contains JSON data
+    const userData = req.body;
+
+    // Validate the user data
+    const requiredFields = ['name', 'email', 'password'];
+    if (requiredFields.some(key => !(key in userData))) {
+        return res.status(400).json({ status: '400', response: 'INVALID_DATA', message: 'Missing required fields, please check your input' });
+    }
+
+    // For now, we'll just return a success message
+    return res.status(201).json({ status: '201', response: 'created', message: 'User created successfully', data: userData });
+});
+
 // Start the server
 app.listen(PORT, () => {
     console.log(`Server is up and running on port ${PORT}`);
