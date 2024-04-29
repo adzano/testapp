@@ -1,6 +1,10 @@
 const express = require('express');
+const fs = require('fs');
 const app = express();
 const PORT = 3000; // Define Port here
+
+// Load dummy JSON file
+const jsonData = JSON.parse(fs.readFileSync('datasample.json', 'utf8'));
 
 // Middleware to parse JSON bodies
 app.use(express.json());
@@ -122,6 +126,10 @@ app.post('/user', (req, res) => {
 
     // For now, we'll just return a success message
     return res.status(201).json({ status: '201', response: 'created', message: 'User created successfully', data: userData });
+});
+
+app.get('/data', (req, res) => {
+    res.json(jsonData);
 });
 
 // Start the server
